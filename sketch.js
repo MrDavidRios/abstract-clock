@@ -53,6 +53,17 @@ function drawStars() {
   pop();
 }
 
+function drawGuidelines(x, y, planetRadius, length, color) {
+  push();
+  stroke(color);
+  line(x - planetRadius - length, y, x + planetRadius + length, y);
+  line(x, y - planetRadius - length, x, y + planetRadius + length);
+  // line(x, y, x, y);
+  // line(x, y, x, y);
+
+  pop();
+}
+
 function draw() {
   background("#181a1b");
   printMinuteIfChanged(minute());
@@ -64,15 +75,16 @@ function draw() {
 
   rotate(-90);
 
-  line(0, BOTTOM_EDGE, 0, TOP_EDGE);
-  line(LEFT_EDGE, 0, RIGHT_EDGE, 0);
-
   fill("#FC9601");
 
   const SUN_RADIUS = 300;
 
+  drawGuidelines(0, 0, SUN_RADIUS, 40, "#3a3a3a");
+
+  push();
   noStroke();
   circle(0, 0, SUN_RADIUS);
+  pop();
 
   // Hour circle
   fill("#186467");
@@ -82,9 +94,11 @@ function draw() {
   const hourX = hourPlanetDist * cos(hourAngle);
   const hourY = hourPlanetDist * sin(hourAngle);
 
+  drawGuidelines(hourX, hourY, CENTER_PLANET_RADIUS, 200, "#3a3a3a");
   push();
+  noStroke();
   circle(hourX, hourY, CENTER_PLANET_RADIUS);
-
+  pop();
   // Start orbiting from top of center circle
 
   // Minutes circle
@@ -96,8 +110,11 @@ function draw() {
   const minuteY = hourY + minutePlanetDist * sin(minuteAngle);
   const minutePlanetRadius = CENTER_PLANET_RADIUS / 2;
 
+  drawGuidelines(minuteX, minuteY, minutePlanetRadius, 50, "#3a3a3a");
+  push();
+  noStroke();
   circle(minuteX, minuteY, minutePlanetRadius);
-
+  pop();
   // Seconds circle
   fill("#42F2F7");
 
@@ -107,5 +124,8 @@ function draw() {
   const secondY = minuteY + secondsPlanetDist * sin(secondAngle);
   const secondsPlanetRadius = minutePlanetRadius / 3;
 
+  push();
+  noStroke();
   circle(secondX, secondY, secondsPlanetRadius);
+  pop();
 }
