@@ -53,14 +53,45 @@ function drawStars() {
   pop();
 }
 
-function drawGuidelines(x, y, planetRadius, length, color) {
-  push();
+function drawGuidelines(x, y, planetRadius, length, color, pct) {
   stroke(color);
-  line(x - planetRadius - length, y, x + planetRadius + length, y);
-  line(x, y - planetRadius - length, x, y + planetRadius + length);
-  // line(x, y, x, y);
-  // line(x, y, x, y);
 
+  // rotation of -90
+
+  // top
+  push();
+  stroke(pct >= 0.25 ? "#215913" : color);
+  if (pct >= 0.25 && pct < 0.5) {
+    stroke("#c7c422");
+  }
+  line(x, y, x + planetRadius + length, y);
+  pop();
+
+  // right
+  push();
+  stroke(pct >= 0.0 ? "#215913" : color);
+  if (pct >= 0.0 && pct < 0.25) {
+    stroke("#c7c422");
+  }
+  line(x, y, x, y + planetRadius + length);
+  pop();
+
+  // left
+  push();
+  stroke(pct >= 0.75 ? "#215913" : color);
+  if (pct >= 0.75 && pct < 1.0) {
+    stroke("#c7c422");
+  }
+  line(x, y - planetRadius - length, x, y);
+  pop();
+
+  // bottom
+  push();
+  stroke(pct >= 0.5 ? "#215913" : color);
+  if (pct >= 0.5 && pct < 0.75) {
+    stroke("#c7c422");
+  }
+  line(x - planetRadius - length, y, x + length, y);
   pop();
 }
 
@@ -79,7 +110,7 @@ function draw() {
 
   const SUN_RADIUS = 300;
 
-  drawGuidelines(0, 0, SUN_RADIUS, 40, "#3a3a3a");
+  drawGuidelines(0, 0, SUN_RADIUS, 40, "#3a3a3a", hour() / 24);
 
   push();
   noStroke();
@@ -94,12 +125,11 @@ function draw() {
   const hourX = hourPlanetDist * cos(hourAngle);
   const hourY = hourPlanetDist * sin(hourAngle);
 
-  drawGuidelines(hourX, hourY, CENTER_PLANET_RADIUS, 200, "#3a3a3a");
+  drawGuidelines(hourX, hourY, CENTER_PLANET_RADIUS, 40, "#3a3a3a", minute() / 60);
   push();
   noStroke();
   circle(hourX, hourY, CENTER_PLANET_RADIUS);
   pop();
-  // Start orbiting from top of center circle
 
   // Minutes circle
   fill("#498C8A");
@@ -110,11 +140,12 @@ function draw() {
   const minuteY = hourY + minutePlanetDist * sin(minuteAngle);
   const minutePlanetRadius = CENTER_PLANET_RADIUS / 2;
 
-  drawGuidelines(minuteX, minuteY, minutePlanetRadius, 50, "#3a3a3a");
+  drawGuidelines(minuteX, minuteY, minutePlanetRadius, 20, "#3a3a3a", second() / 60);
   push();
   noStroke();
   circle(minuteX, minuteY, minutePlanetRadius);
   pop();
+
   // Seconds circle
   fill("#42F2F7");
 
