@@ -58,38 +58,41 @@ function drawGuidelines(x, y, planetRadius, length, color, pct) {
 
   // rotation of -90
 
+  const green = "#215913";
+  const yellow = "#c7c422";
+
   // top
   push();
   stroke(color);
   if (pct >= 0.75 && pct < 1.0) {
-    stroke("#c7c422");
+    stroke(yellow);
   }
   line(x, y, x + planetRadius + length, y);
   pop();
 
   // right
   push();
-  stroke(pct >= 0.0 ? "#215913" : color);
+  stroke(pct >= 0.25 ? green : color);
   if (pct >= 0.0 && pct < 0.25) {
-    stroke("#c7c422");
+    stroke(yellow);
   }
   line(x, y, x, y + planetRadius + length);
   pop();
 
   // left
   push();
-  stroke(pct >= 0.75 ? "#215913" : color);
+  stroke(pct >= 0.75 ? green : color);
   if (pct >= 0.5 && pct < 0.75) {
-    stroke("#c7c422");
+    stroke(yellow);
   }
   line(x, y - planetRadius - length, x, y);
   pop();
 
   // bottom
   push();
-  stroke(pct >= 0.5 ? "#215913" : color);
+  stroke(pct >= 0.5 ? green : color);
   if (pct >= 0.25 && pct < 0.5) {
-    stroke("#c7c422");
+    stroke(yellow);
   }
   line(x - planetRadius - length, y, x + length, y);
   pop();
@@ -106,11 +109,15 @@ function draw() {
 
   rotate(-90);
 
-  fill("#FC9601");
+  const sunriseColor = color("#FC9601");
+  const sunsetColor = color("#A36D8D");
+  const sunColor = lerpColor(sunriseColor, sunsetColor, hour() / 24);
+  fill(sunColor);
 
   const SUN_RADIUS = 300;
 
-  drawGuidelines(0, 0, SUN_RADIUS, 40, "#3a3a3a", hour() / 24);
+  console.log("hour pct:", hour() / 12);
+  drawGuidelines(0, 0, SUN_RADIUS, 40, "#3a3a3a", (hour() > 12 ? hour() - 12 : hour()) / 12);
 
   push();
   noStroke();
