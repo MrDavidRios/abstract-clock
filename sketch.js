@@ -116,7 +116,6 @@ function draw() {
 
   const SUN_RADIUS = 300;
 
-  console.log("hour pct:", hour() / 12);
   drawGuidelines(0, 0, SUN_RADIUS, 40, "#3a3a3a", (hour() > 12 ? hour() - 12 : hour()) / 12);
 
   push();
