@@ -60,8 +60,8 @@ function drawGuidelines(x, y, planetRadius, length, color, pct) {
 
   // top
   push();
-  stroke(pct >= 0.25 ? "#215913" : color);
-  if (pct >= 0.25 && pct < 0.5) {
+  stroke(color);
+  if (pct >= 0.75 && pct < 1.0) {
     stroke("#c7c422");
   }
   line(x, y, x + planetRadius + length, y);
@@ -79,7 +79,7 @@ function drawGuidelines(x, y, planetRadius, length, color, pct) {
   // left
   push();
   stroke(pct >= 0.75 ? "#215913" : color);
-  if (pct >= 0.75 && pct < 1.0) {
+  if (pct >= 0.5 && pct < 0.75) {
     stroke("#c7c422");
   }
   line(x, y - planetRadius - length, x, y);
@@ -88,7 +88,7 @@ function drawGuidelines(x, y, planetRadius, length, color, pct) {
   // bottom
   push();
   stroke(pct >= 0.5 ? "#215913" : color);
-  if (pct >= 0.5 && pct < 0.75) {
+  if (pct >= 0.25 && pct < 0.5) {
     stroke("#c7c422");
   }
   line(x - planetRadius - length, y, x + length, y);
